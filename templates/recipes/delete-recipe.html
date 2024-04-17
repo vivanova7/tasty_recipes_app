@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+    <!-- delete recipe form -->
+    <section id="delete-page" class="auth">
+        <form action="{% url "delete_recipe" pk=object.pk %}" id="delete" method="post">
+            {% csrf_token %}
+            <div class="container">
+                <h1>Delete Recipe</h1>
+                <div>
+
+                    <label for="id_title">Title:</label>
+
+                    <input type="text" name="title" value="{{ object.title }}" maxlength="100" readonly="readonly"
+                           required id="id_title"/>
+                </div>
+
+                <div>
+                    <label for="id_cuisine_type">Cuisine Type:</label>
+
+                    <select
+                            name="cuisine_type"
+                            readonly="readonly"
+                            required
+                            id="id_cuisine_type"
+                    >
+                        <option value="">{{ object.cuisine_type }}</option>
+
+                    </select>
+                </div>
+
+                <div>
+                    <label for="id_ingredients">Ingredients:</label>
+
+                    <div class="helptext" id="id_ingredients_helptext">
+                        Ingredients must be separated by a comma and space.
+                    </div>
+
+                    <textarea
+                            name="ingredients"
+                            cols="40"
+                            rows="10"
+                            placeholder="ingredient1, ingredient2, ..."
+                            readonly="readonly"
+                            required
+                            aria-describedby="id_ingredients_helptext"
+                            id="id_ingredients"
+                    >
+{{ object.ingredients }}</textarea
+                    >
+                </div>
+
+                <div>
+                    <label for="id_instructions">Instructions:</label>
+
+                    <textarea
+                            name="instructions"
+                            cols="40"
+                            rows="10"
+                            placeholder="Enter detailed instructions here..."
+                            readonly="readonly"
+                            required
+                            id="id_instructions"
+                    >{{ object.instructions }}</textarea
+                    >
+                </div>
+
+                <div>
+                    <label for="id_cooking_time">Cooking Time:</label>
+
+                    <div class="helptext" id="id_cooking_time_helptext">
+                        Provide the cooking time in minutes.
+                    </div>
+
+                    <input
+                            type="number"
+                            name="cooking_time"
+                            value="{{ object.cooking_time }}"
+                            min="0"
+                            readonly="readonly"
+                            required
+                            aria-describedby="id_cooking_time_helptext"
+                            id="id_cooking_time"
+                    />
+                </div>
+
+                <div>
+                    <label for="id_image_url">Image URL:</label>
+
+                    <input
+                            type="url"
+                            name="image_url"
+                            value="{{ object.image_url }}"
+                            placeholder="Optional image URL here..."
+                            maxlength="200"
+                            readonly="readonly"
+                            id="id_image_url"
+                    />
+                </div>
+                <!-- delete button -->
+                <input class="btn submit" type="submit" value="Delete Recipe"/>
+            </div>
+        </form>
+    </section>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block main_content %}
+    <section id="catalogue">
+        {% if not object_list %}
+
+            <p class="no-articles">There are currently no recipes available.</p>
+
+        {% else %}
+
+            {% for object in object_list %}
+
+                <div class="recipe-card">
+                    <div class="image-wrap">
+                        {% if not object.image_url %}
+                            <img
+                                    class="recipe-img"
+                                    src="https://cdn.pixabay.com/photo/2016/12/27/21/22/salad-1934944_1280.jpg"
+                                    alt="recipe image"
+                            />
+                            {% else %}
+
+                            <img
+                                    src="{{ object.image_url }}"
+                                    alt="recipe image"
+                            />
+                        {% endif %}
+                    </div>
+                    <!-- recipe title -->
+                    <h3>{{ object.title }}</h3>
+                    <!-- recipe cooking time -->
+                    <h1>Cooking time: {{ object.cooking_time }} min.</h1>
+                    <!-- recipe instructions -->
+                    <h1>{{ object.instructions|slice:":35" }}</h1>
+                    <div class="details-buttons">
+                        <!-- recipe details button -->
+                        <a href="{% url "detail_recipe" pk=object.pk %}" class="details-btn">Details</a>
+
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% endif %}
+
+{% endblock %}
